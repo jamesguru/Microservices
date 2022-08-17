@@ -14,7 +14,7 @@ app.use((err:Error, req:Request, res:Response) => {
     }
 })
 
-app.listen(4000,() => {
+app.listen(7000,() => {
 
     console.log('app is running on port 4000')
 })
