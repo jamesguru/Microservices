@@ -24,13 +24,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
+const current_user_1 = require("./Routes/current-user");
+const error_handler_1 = require("./Middlewares/error-handler");
 const app = (0, express_1.default)();
 app.use((0, express_1.json)());
-app.use((err, req, res) => {
-    if (err.message) {
-        console.log(err.message);
-    }
-});
-app.listen(7000, () => {
+app.use(current_user_1.currentuser);
+app.use(error_handler_1.errorHandler);
+app.listen(4000, () => {
     console.log('app is running on port 4000');
 });

@@ -1,4 +1,6 @@
 import express, { json, Request, Response } from 'express';
+import {currentuser} from './Routes/current-user';
+import { errorHandler } from './Middlewares/error-handler';
 
 
 const app = express();
@@ -6,15 +8,10 @@ const app = express();
 
 app.use(json())
 
-app.use((err:Error, req:Request, res:Response) => {
+app.use(currentuser);
 
-    if(err.message){
-
-        console.log(err.message);
-    }
-})
-
-app.listen(7000,() => {
+app.use(errorHandler);
+app.listen(4000,() => {
 
     console.log('app is running on port 4000')
-})
+}) 
