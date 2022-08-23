@@ -22,7 +22,7 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage("Password must be between 4 and 20 characters"),
   ],
-  (req: UserInfo, res: Response) => {
+  async (req: UserInfo, res: Response) => {
 
 
 

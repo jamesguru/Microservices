@@ -1,4 +1,5 @@
 import {Request,Response,NextFunction} from 'express';
+import { CustomErrors } from '../errors/custom-errors';
 import { DatabaseConnectionError } from '../errors/Database-connection-error';
 import { RequestValidationError } from '../errors/request-validation-errors';
 
@@ -7,39 +8,18 @@ export const errorHandler = (err:Error, req:Request, res:Response, next:NextFunc
 
 
 
-if(err instanceof RequestValidationError){
+if(err instanceof CustomErrors){
 
-const formattedErrors = err.errors.map(error => {
-
-
-    return {message: error.msg, field:error.param}
-}) ;
-
-
-return res.status(400).send({errors:formattedErrors});
-
-
+return res.status(err.statusCode).send({errors:err.serializeErrors()})
 } 
 
 
-if(err instanceof DatabaseConnectionError){
 
 
 
+res.status(400).send({
 
-    return res.status(500).send({errors:[
-
-        {message:err.message}
-    ]})
-
-
-}
-
-
-    res.status(400).json({
-
-        message:"Something went wrong"
-    })
-
+    errors:[{message:'something went wrong'}]
+})
 
 }
